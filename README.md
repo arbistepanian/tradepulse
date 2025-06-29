@@ -46,6 +46,7 @@ pip install -r requirements.txt
 FRONTEND_URL
 FINNHUB_API_KEY
 API_KEY
+ENV=development # or production
 
 uvicorn src.main:app
 ```
