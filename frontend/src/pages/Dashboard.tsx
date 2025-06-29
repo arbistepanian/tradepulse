@@ -39,11 +39,25 @@ export default function DashboardPage() {
 
         startTransaction(async () => {
             try {
-                const data = await fetchSymbolData(symbol);
-                localStorage.setItem(
-                    "lastSymbolData",
-                    JSON.stringify({ symbol, data })
+                const API_URL = import.meta.env.VITE_API_URL;
+                const API_KEY = import.meta.env.VITE_API_KEY;
+
+                console.log(`fetching data from ${API_URL}`);
+
+                const response = await fetch(
+                    `${API_URL}/api/data?symbol=${symbol}`,
+                    {
+                        headers: {
+                            "X-API-KEY": API_KEY,
+                        },
+                    }
                 );
+                const data = await response.json();
+                // const data = await fetchSymbolData(symbol);
+                // localStorage.setItem(
+                //     "lastSymbolData",
+                //     JSON.stringify({ symbol, data })
+                // );
                 setData(data);
             } catch (err: any) {
                 console.error(err);
