@@ -1,7 +1,7 @@
 import os
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.middleware.httpsredirect import HTTPSRedirectMiddleware
+from fastapi.responses import RedirectResponse  # Import RedirectResponse
 from src.api.routes import router
 from contextlib import asynccontextmanager
 from dotenv import load_dotenv
@@ -16,6 +16,9 @@ async def lifespan(app: FastAPI):
     print("Starting up...")
     for route in app.routes:
         print(route.path, route.methods)
+    print(f"FRONTEND_URL: {FRONTEND_URL}")
+    print("hardcoded allow origin")
+
     yield
     print("Shutting down...")
 

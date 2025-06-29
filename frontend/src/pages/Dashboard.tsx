@@ -39,12 +39,6 @@ export default function DashboardPage() {
 
         startTransaction(async () => {
             try {
-                const response = await fetch(
-                    "https://tradepulse-lite.fly.dev/api/healthcheck/"
-                );
-
-                console.log("health check: ", await response);
-
                 const data = await fetchSymbolData(symbol);
                 localStorage.setItem(
                     "lastSymbolData",

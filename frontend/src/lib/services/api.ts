@@ -6,7 +6,7 @@ export async function fetchSymbolData(symbol: string): Promise<SymbolData> {
 
     // console.log(`fetching data from ${API_URL}`);
 
-    const response = await fetch(`${API_URL}/api/data?symbol=${symbol}`, {
+    const response = await fetch(`${API_URL}/api/data/?symbol=${symbol}`, {
         headers: {
             "X-API-KEY": API_KEY,
         },
