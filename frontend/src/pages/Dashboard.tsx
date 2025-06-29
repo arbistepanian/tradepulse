@@ -43,21 +43,27 @@ export default function DashboardPage() {
 
                 console.log(`fetching data from ${API_URL}`);
 
-                const response = await fetch(
-                    `${API_URL}/api/data?symbol=${symbol}`,
-                    {
-                        headers: {
-                            "X-API-KEY": API_KEY,
-                        },
-                    }
-                );
+                // const response = await fetch(
+                //     `${API_URL}/api/data?symbol=${symbol}`,
+                //     {
+                //         headers: {
+                //             "X-API-KEY": API_KEY,
+                //         },
+                //     }
+                // );
+                const response = await fetch(`${API_URL}/api/healthcheck`, {
+                    headers: {
+                        "X-API-KEY": API_KEY,
+                    },
+                });
                 const data = await response.json();
+                console.log(data);
                 // const data = await fetchSymbolData(symbol);
                 // localStorage.setItem(
                 //     "lastSymbolData",
                 //     JSON.stringify({ symbol, data })
                 // );
-                setData(data);
+                //setData(data);
             } catch (err: any) {
                 console.error(err);
                 setError(err.message || "Something went wrong");
