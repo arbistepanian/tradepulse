@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react";
-import Button from "../ui/Button";
+import Button from "../Button";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
-import type { NewsArticle } from "../../lib/types/types";
+import type { NewsArticle } from "../../../lib/types/types";
 
 interface NewsFeedProps {
     articles: NewsArticle[];

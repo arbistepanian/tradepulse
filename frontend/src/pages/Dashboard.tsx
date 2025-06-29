@@ -1,15 +1,15 @@
 import { useState, useEffect, useTransition } from "react";
-import SymbolInfoCard from "../components/dashboard/SymbolInfo";
-import StockChart from "../components/dashboard/StockChart";
-import NewsFeed from "../components/dashboard/NewsFeed";
+import SymbolInfoCard from "../ui/components/dashboard/SymbolInfo";
+import StockChart from "../ui/components/dashboard/StockChart";
+import NewsFeed from "../ui/components/dashboard/NewsFeed";
 import type { SymbolData } from "../lib/types/types";
 import { fetchSymbolData } from "../lib/services/api";
-import Heading from "../components/ui/Heading";
-import TextInput from "../components/ui/TextInput";
-import Button from "../components/ui/Button";
-import NewsFeedSkeleton from "../components/dashboard/NewsFeedSkeleton";
-import StockChartSkeleton from "../components/dashboard/StockChartSkeleton";
-import SymbolInfoCardSkeleton from "../components/dashboard/SymbolInfoCardSkeleton";
+import Heading from "../ui/components/Heading";
+import TextInput from "../ui/components/TextInput";
+import Button from "../ui/components/Button";
+import NewsFeedSkeleton from "../ui/components/dashboard/NewsFeedSkeleton";
+import StockChartSkeleton from "../ui/components/dashboard/StockChartSkeleton";
+import SymbolInfoCardSkeleton from "../ui/components/dashboard/SymbolInfoCardSkeleton";
 
 export default function DashboardPage() {
     const [data, setData] = useState<SymbolData | null>(null);

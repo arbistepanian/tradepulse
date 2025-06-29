@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import type { SymbolInfo } from "../../lib/types/types"; // Adjust import path if needed
+import type { SymbolInfo } from "../../../lib/types/types"; // Adjust import path if needed
 
 type Props = {
     info: SymbolInfo;

@@ -15,13 +15,13 @@ import { Line } from "react-chartjs-2";
 import "chartjs-adapter-date-fns";
 import { useMemo, useState } from "react";
 import type { ChartOptions, ChartData } from "chart.js";
-import type { PriceEntry } from "../../lib/types/types";
+import type { PriceEntry } from "../../../lib/types/types";
 
-import Select from "../ui/Select";
-import Heading from "../ui/Heading";
-import ToggleSwitch from "../ui/ToggleSwitch";
+import Select from "../Select";
+import Heading from "../Heading";
+import ToggleSwitch from "../ToggleSwitch";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
-import Button from "../ui/Button";
+import Button from "../Button";
 
 ChartJS.register(
     CategoryScale,
@@ -243,7 +243,7 @@ export default function StockChart({ prices }: StockChartProps) {
                             Indicators <ChevronDownIcon className="w-4 h-4" />
                         </Button>
                         {showDropdown && (
-                            <div className="absolute right-0 mt-2 w-56 bg-[var(--background)] shadow-lg rounded-md p-3 z-10 border border-border">
+                            <div className="absolute left-0 mt-2 w-56 bg-[var(--background)] shadow-lg rounded-md p-3 z-10 border border-border">
                                 {INDICATORS.map((ind) => (
                                     <div
                                         key={ind.key}

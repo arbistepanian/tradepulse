@@ -1,5 +1,5 @@
-import Heading from "../components/ui/Heading";
-import Link from "../components/ui/Link";
+import Heading from "../ui/components/Heading";
+import Link from "../ui/components/Link";
 
 export default function HomePage() {
     return (
