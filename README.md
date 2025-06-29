@@ -30,7 +30,7 @@ cd tradepulse
 
 🔗 [Live Preview on Vercel](https://tradepulse-lite.vercel.app)
 
-![Homepage Screenshot](./public/screenshot-01.jpg)
+![Homepage Screenshot](./frontend/public/screenshot-01.jpg)
 
 ---
 
