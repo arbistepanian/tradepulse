@@ -1,11 +1,6 @@
-import type { ReactNode } from "react";
-import { Link } from "react-router-dom";
+import { Outlet, Link } from "react-router-dom";
 
-type LayoutProps = {
-    children: ReactNode;
-};
-
-export default function Layout({ children }: LayoutProps) {
+export default function Layout() {
     return (
         <div className="min-h-screen w-screen bg-background text-text">
             <nav className="bg-surface shadow p-4 mb-6">
@@ -27,7 +22,7 @@ export default function Layout({ children }: LayoutProps) {
                 </div>
             </nav>
             <main className="container mx-auto pl-4 pr-6 md:px-4">
-                {children}
+                <Outlet />
             </main>
         </div>
     );
