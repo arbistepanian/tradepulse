@@ -3,6 +3,7 @@ import SymbolInfoCard from "../components/dashboard/SymbolInfo";
 import StockChart from "../components/dashboard/StockChart";
 import NewsFeed from "../components/dashboard/NewsFeed";
 import type { SymbolData } from "../lib/types/types";
+import { fetchSymbolData } from "../lib/services/api";
 import Heading from "../components/ui/Heading";
 import TextInput from "../components/ui/TextInput";
 import Button from "../components/ui/Button";
@@ -38,33 +39,18 @@ export default function DashboardPage() {
 
         startTransaction(async () => {
             try {
-                const API_URL = import.meta.env.VITE_API_URL;
-                const API_KEY = import.meta.env.VITE_API_KEY;
+                const response = await fetch(
+                    "https://tradepulse-lite.fly.dev/api/healthcheck/"
+                );
 
-                console.log(`fetching data from ${API_URL}`);
+                console.log("health check: ", await response);
 
-                // const response = await fetch(
-                //     `${API_URL}/api/data?symbol=${symbol}`,
-                //     {
-                //         headers: {
-                //             "X-API-KEY": API_KEY,
-                //         },
-                //     }
-                // );
-                const response = await fetch(`${API_URL}/api/healthcheck`, {
-                    headers: {
-                        "X-API-KEY": API_KEY,
-                    },
-                });
-                const data = await response.json();
-                console.log(data);
-                // const data = await fetchSymbolData(symbol);
-                // localStorage.setItem(
-                //     "lastSymbolData",
-                //     JSON.stringify({ symbol, data })
-                // );
-                //setData(data);
-                setData(null);
+                const data = await fetchSymbolData(symbol);
+                localStorage.setItem(
+                    "lastSymbolData",
+                    JSON.stringify({ symbol, data })
+                );
+                setData(data);
             } catch (err: any) {
                 console.error(err);
                 setError(err.message || "Something went wrong");
