@@ -3,7 +3,6 @@ import SymbolInfoCard from "../components/dashboard/SymbolInfo";
 import StockChart from "../components/dashboard/StockChart";
 import NewsFeed from "../components/dashboard/NewsFeed";
 import type { SymbolData } from "../lib/types/types";
-import { fetchSymbolData } from "../lib/services/api";
 import Heading from "../components/ui/Heading";
 import TextInput from "../components/ui/TextInput";
 import Button from "../components/ui/Button";
