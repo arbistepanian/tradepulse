@@ -9,6 +9,8 @@ load_dotenv()
 
 FRONTEND_URL = os.getenv("FRONTEND_URL")
 
+print(f"FRONTEND_URL: {FRONTEND_URL}")
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Startup
@@ -22,7 +24,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 
 app.add_middleware(CORSMiddleware, 
-                   allow_origins=[FRONTEND_URL],
+                   allow_origins=["*"],
                    allow_credentials=True,
                    allow_methods=["*"],
                    allow_headers=["*"])
