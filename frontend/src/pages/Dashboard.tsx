@@ -7,6 +7,9 @@ import { fetchSymbolData } from "../lib/services/api";
 import Heading from "../components/ui/Heading";
 import TextInput from "../components/ui/TextInput";
 import Button from "../components/ui/Button";
+import NewsFeedSkeleton from "../components/dashboard/NewsFeedSkeleton";
+import StockChartSkeleton from "../components/dashboard/StockChartSkeleton";
+import SymbolInfoCardSkeleton from "../components/dashboard/SymbolInfoCardSkeleton";
 
 export default function DashboardPage() {
     const [data, setData] = useState<SymbolData | null>(null);
@@ -93,8 +96,33 @@ export default function DashboardPage() {
                         </Button>
                     </div>
                 </div>
-                {isPending && <p className="text-muted">Loading...</p>}
                 {error && <p className="text-red-500">Error: {error}</p>}
+                {isPending && !error && (
+                    <div>
+                        <section className="mb-8">
+                            <SymbolInfoCardSkeleton />
+                        </section>
+                        <section className="mb-8">
+                            <Heading
+                                level={2}
+                                className="text-lg font-semibold mb-4 text-center"
+                            >
+                                Price Chart
+                            </Heading>
+                            <StockChartSkeleton />
+                        </section>
+
+                        <section className="mb-8">
+                            <Heading
+                                level={2}
+                                className="text-lg font-semibold mb-4 text-center"
+                            >
+                                Recent News
+                            </Heading>
+                            <NewsFeedSkeleton />
+                        </section>
+                    </div>
+                )}
                 {data && !isPending && !error && (
                     <div>
                         <section className="mb-8">
