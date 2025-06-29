@@ -64,6 +64,7 @@ export default function DashboardPage() {
                 //     JSON.stringify({ symbol, data })
                 // );
                 //setData(data);
+                setData(null);
             } catch (err: any) {
                 console.error(err);
                 setError(err.message || "Something went wrong");
