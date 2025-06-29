@@ -51,6 +51,11 @@ Backend runs at `http://localhost:8000`
 ```bash
 cd ../frontend
 npm install
+
+# Set your env variables
+VITE_API_URL
+VITE_API_KEY
+
 npm run dev
 ```
 
