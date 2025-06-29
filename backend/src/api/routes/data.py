@@ -8,7 +8,7 @@ import re
 
 router = APIRouter()
 
-@router.get("/")
+@router.get("")
 def get_symbol_data(
     symbol: str = Query("AAPL"),
     user: dict = Depends(verify_api_key)
