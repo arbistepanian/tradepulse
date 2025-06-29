@@ -14,7 +14,7 @@ export default function Button({
     ...props
 }: ButtonProps) {
     const base =
-        "px-4 py-2 rounded font-medium transition cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed";
+        "px-4 py-2 h-10 rounded font-medium transition cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed";
 
     const styles = {
         primary: cn(
@@ -22,7 +22,7 @@ export default function Button({
             "disabled:bg-[var(--disabled)] disabled:text-[var(--on-primary)]"
         ),
         secondary: cn(
-            "bg-[var(--surface)] text-[var(--foreground)] border border-[var(--muted)] hover:bg-[var(--hover-surface)]",
+            "bg-[var(--surface)] text-[var(--foreground)] border border-[var(--border)] hover:bg-[var(--hover-surface)]",
             "disabled:bg-[var(--disabled)] disabled:text-[var(--on-primary)]"
         ),
     };

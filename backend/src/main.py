@@ -17,7 +17,6 @@ async def lifespan(app: FastAPI):
     for route in app.routes:
         print(route.path, route.methods)
     print(f"FRONTEND_URL: {FRONTEND_URL}")
-    print("hardcoded allow origin")
 
     yield
     print("Shutting down...")
@@ -27,7 +26,7 @@ app = FastAPI(lifespan=lifespan)
 # ✅ CORS for frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[FRONTEND_URL],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

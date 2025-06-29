@@ -1,4 +1,4 @@
-import { useState, useTransition } from "react";
+import { useState, useEffect, useTransition } from "react";
 import SymbolInfoCard from "../components/dashboard/SymbolInfo";
 import StockChart from "../components/dashboard/StockChart";
 import NewsFeed from "../components/dashboard/NewsFeed";
@@ -14,16 +14,16 @@ export default function DashboardPage() {
     const [symbol, setSymbol] = useState("");
     const [isPending, startTransaction] = useTransition();
 
-    // useEffect(() => {
-    //     const saved = localStorage.getItem("lastSymbolData");
-    //     if (saved) {
-    //         const parsed = JSON.parse(saved);
-    //         if (parsed.symbol && parsed.data) {
-    //             setData(parsed.data);
-    //             setSymbol(parsed.symbol);
-    //         }
-    //     }
-    // }, []);
+    useEffect(() => {
+        const saved = localStorage.getItem("lastSymbolData");
+        if (saved) {
+            const parsed = JSON.parse(saved);
+            if (parsed.symbol && parsed.data) {
+                setData(parsed.data);
+                setSymbol(parsed.symbol);
+            }
+        }
+    }, []);
 
     const fetchData = () => {
         if (!symbol || !symbol.trim()) {

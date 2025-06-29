@@ -230,10 +230,10 @@ export default function StockChart({ prices }: StockChartProps) {
     }, [timeframe, enabledIndicators]);
 
     return (
-        <div className="w-full bg-surface rounded-lg p-4 shadow">
+        <div className="w-full bg-surface rounded-lg p-4 border border-[var(--border)] shadow-sm">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-2">
                 <Heading level={2}>Stock Chart</Heading>
-                <div className="flex items-center gap-2">
+                <div className="flex justify-end items-center gap-2">
                     <div className="relative">
                         <Button
                             variant="secondary"

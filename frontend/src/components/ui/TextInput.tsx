@@ -23,8 +23,8 @@ export default function TextInput({
                 id={id}
                 {...props}
                 className={cn(
-                    "w-full px-4 py-2 rounded border focus:outline-none focus:ring-2",
-                    "bg-[var(--background)] text-[var(--foreground)] placeholder-muted border-[var(--muted)] focus:ring-[var(--primary)]",
+                    "w-full px-4 py-2 h-10 rounded border focus:outline-none focus:ring-2",
+                    "bg-[var(--background)] text-[var(--foreground)] placeholder-muted border-[var(--border)] focus:ring-[var(--primary)]",
                     className
                 )}
             />

@@ -52,8 +52,8 @@ export default function NewsFeed({
     };
 
     return (
-        <div className="bg-surface p-4 rounded shadow border border-border mt-6">
-            <div className="flex justify-center items-center gap-4 border-b pb-4 mb-4">
+        <div className="bg-surface p-4 rounded border border-[var(--border)] shadow-sm mt-6">
+            <div className="flex justify-center items-center gap-4 border-[var(--border)] border-b pb-4 mb-4">
                 <Button
                     variant="secondary"
                     onClick={handlePrev}
@@ -86,7 +86,10 @@ export default function NewsFeed({
                         : getPreview(article.content);
 
                     return (
-                        <li key={idx} className="border-b border-border pb-3">
+                        <li
+                            key={idx}
+                            className="border-b border-[var(--border)] pb-3"
+                        >
                             <a
                                 href={article.url}
                                 target="_blank"

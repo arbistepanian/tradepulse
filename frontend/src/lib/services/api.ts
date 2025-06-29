@@ -12,8 +12,11 @@ export async function fetchSymbolData(symbol: string): Promise<SymbolData> {
         },
     });
 
-    // console.log(response);
-    if (!response.ok) throw Error(`API Error: ${response.status}`);
+    if (!response.ok) {
+        const error = await response.json();
+        //console.log(error);
+        throw new Error(error.detail || "Unknown API error");
+    }
 
     return await response.json();
 }

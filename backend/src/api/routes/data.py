@@ -19,6 +19,14 @@ def get_symbol_data(
         raise HTTPException(status_code=400, detail="Invalid symbol format")
 
     try:
+        symbol_info = fetch_symbol_info(symbol)
+    except Exception as e:
+        print(f"❌ Symbol info fetch failed: {e}")
+        symbol_info = None
+
+    if symbol_info is None:
+        raise HTTPException(status_code=400, detail="Invalid symbol")
+    try:
         news_articles = fetch_news(symbol)
     except Exception as e:
         print(f"❌ News fetch failed: {e}")
@@ -32,12 +40,6 @@ def get_symbol_data(
     except Exception as e:
         print(f"❌ Price fetch failed: {e}")
         prices_1 = prices_7 = prices_30 = prices_90 = []
-
-    try:
-        symbol_info = fetch_symbol_info(symbol)
-    except Exception as e:
-        print(f"❌ Symbol info fetch failed: {e}")
-        symbol_info = {}
 
     response = {
         "status": "success",

@@ -28,8 +28,9 @@ export default function Select({
                 id={id}
                 {...props}
                 className={cn(
-                    "w-full px-4 py-2 rounded border appearance-none focus:outline-none focus:ring-2",
-                    "bg-[var(--background)] text-[var(--foreground)] border-[var(--muted)] focus:ring-[var(--primary)]",
+                    "w-full px-4 py-2 h-10 rounded border focus:outline-none focus:ring-2",
+                    "bg-[var(--surface)] text-[var(--foreground)] border border-[var(--border)] hover:bg-[var(--hover-surface)] focus:ring-[var(--primary)]",
+                    "disabled:bg-[var(--disabled)] disabled:text-[var(--on-primary)]",
                     className
                 )}
             >
