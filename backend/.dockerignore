@@ -1,0 +1,106 @@
+# flyctl launch added from .gitignore
+# Byte-compiled / optimized / DLL files
+**\__pycache__
+**\*.py[cod]
+**\*$py.class
+
+# C extensions
+**\*.so
+
+# Distribution / packaging
+**\build
+**\develop-eggs
+**\dist
+**\downloads
+**\eggs
+**\.eggs
+**\lib
+**\lib64
+**\parts
+**\sdist
+**\var
+**\*.egg-info
+**\.installed.cfg
+**\*.egg
+
+# Virtual environments
+**\.env
+**\.venv
+**\env
+**\venv
+**\ENV
+**\env.bak
+**\venv.bak
+
+# PyInstaller
+**\*.manifest
+**\*.spec
+
+# Installer logs
+**\pip-log.txt
+**\pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+**\htmlcov
+**\.tox
+**\.nox
+**\.coverage
+**\.coverage.*
+**\.cache
+**\nosetests.xml
+**\coverage.xml
+**\*.cover
+**\*.py,cover
+**\.hypothesis
+**\.pytest_cache
+
+# mypy
+**\.mypy_cache
+**\.dmypy.json
+**\dmypy.json
+
+# Pyre
+**\.pyre
+
+# PyCharm
+**\.idea
+
+# VSCode
+**\.vscode
+
+# Logs
+**\*.log
+**\logs
+**\log
+
+# SQLite and database files
+**\*.sqlite3
+**\*.db
+
+# Secrets and config
+**\*.env
+**\.env.*
+**\secrets.json
+**\config.local.yaml
+
+# OS files
+**\.DS_Store
+**\Thumbs.db
+
+# Jupyter Notebooks (if used)
+**\.ipynb_checkpoints
+
+# TradeMind specific
+**\__output__
+**\tmp
+**\data\tmp
+**\data\cache
+
+**\src\models\finbert-sentiment
+
+**\cached_results
+
+# flyctl launch added from venv\.gitignore
+# Created by venv; see https://docs.python.org/3/library/venv.html
+venv\**\*
+fly.toml
