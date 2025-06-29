@@ -17,7 +17,7 @@ Built with:
 
 ## 🚀 Quick Start
 
-### 1. 🔧 Clone the repo
+### 🔧 Clone the repo
 
 ```bash
 git clone https://github.com/arbistepanian/tradepulse.git
@@ -26,7 +26,15 @@ cd tradepulse
 
 ---
 
-### 2. ⚙️ Backend Setup
+## 🖼️ Demo
+
+🔗 [Live Preview on Vercel](https://tradepulse-lite.vercel.app)
+
+![Homepage Screenshot](./public/screenshot-01.jpg)
+
+---
+
+### ⚙️ Backend Setup
 
 ```bash
 cd backend
@@ -46,7 +54,7 @@ Backend runs at `http://localhost:8000`
 
 ---
 
-### 3. 🖥️ Frontend Setup
+### 🖥️ Frontend Setup
 
 ```bash
 cd ../frontend
