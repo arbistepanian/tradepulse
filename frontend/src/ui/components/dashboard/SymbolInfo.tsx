@@ -9,7 +9,7 @@ const SymbolInfoCard: FC<Props> = ({ info }) => {
     const { name, industry, exchange, currency, country, logo } = info;
 
     return (
-        <div className="bg-surface p-4 rounded border border-[var(--border)] shadow-sm flex items-start space-x-4 mb-4">
+        <div className="bg-surface p-4 rounded border border-[var(--border)] shadow-sm flex items-start space-x-4 mb-4 w-full">
             {logo && (
                 <img
                     src={logo}

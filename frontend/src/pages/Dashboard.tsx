@@ -10,6 +10,8 @@ import Button from "../ui/components/Button";
 import NewsFeedSkeleton from "../ui/components/dashboard/NewsFeedSkeleton";
 import StockChartSkeleton from "../ui/components/dashboard/StockChartSkeleton";
 import SymbolInfoCardSkeleton from "../ui/components/dashboard/SymbolInfoCardSkeleton";
+import LatestClosePriceCardSkeleton from "../ui/components/dashboard/LatestClosePriceCardSkeleton";
+import LatestClosePriceCard from "../ui/components/dashboard/LatestClosePriceCard";
 
 export default function DashboardPage() {
     const [data, setData] = useState<SymbolData | null>(null);
@@ -99,7 +101,8 @@ export default function DashboardPage() {
                 {error && <p className="text-red-500">Error: {error}</p>}
                 {isPending && !error && (
                     <div>
-                        <section className="mb-8">
+                        <section className="mb-8 flex flex-col md:flex-row gap-4">
+                            <LatestClosePriceCardSkeleton />
                             <SymbolInfoCardSkeleton />
                         </section>
                         <section className="mb-8">
@@ -125,7 +128,10 @@ export default function DashboardPage() {
                 )}
                 {data && !isPending && !error && (
                     <div>
-                        <section className="mb-8">
+                        <section className="mb-8 flex flex-col md:flex-row gap-4">
+                            <LatestClosePriceCard
+                                prices1d={data.prices["1d"]}
+                            />
                             <SymbolInfoCard info={data.symbol_info} />
                         </section>
                         <section className="mb-8">

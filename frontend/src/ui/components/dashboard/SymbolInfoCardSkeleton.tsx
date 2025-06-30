@@ -2,7 +2,7 @@ import type { FC } from "react";
 
 const SymbolInfoCardSkeleton: FC = () => {
     return (
-        <div className="bg-surface p-4 rounded border border-[var(--border)] shadow-sm flex items-start space-x-4 mb-4 animate-pulse">
+        <div className="bg-surface p-4 rounded border border-[var(--border)] shadow-sm flex items-start space-x-4 mb-4 animate-pulse w-full">
             <div className="w-12 h-12 rounded bg-gray-300 dark:bg-gray-700" />
             <div className="flex-1 space-y-2">
                 <div className="h-5 w-3/4 bg-gray-300 dark:bg-gray-700 rounded" />
