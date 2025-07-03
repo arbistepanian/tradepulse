@@ -69,7 +69,11 @@ export default function DashboardPage() {
                 updateRecentSymbols(symbol);
             } catch (err) {
                 console.error(err);
-                setError(err.message || "Something went wrong");
+                if (err instanceof Error) {
+                    setError(err.message);
+                } else {
+                    setError("Something went wrong");
+                }
             }
         });
     };
