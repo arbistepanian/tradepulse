@@ -23,7 +23,7 @@
 @media (prefers-color-scheme: dark) {
     :root {
         --primary: var(--color-indigo-400);
-        --on-primary: var(--color-black);
+        --on-primary: var(--color-white);
 
         --accent: var(--color-indigo-300);
         --on-accent: var(--color-black);

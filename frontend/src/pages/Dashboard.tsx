@@ -140,7 +140,7 @@ export default function DashboardPage() {
                                 {recentSymbols.map((s) => (
                                     <div
                                         key={s}
-                                        className="flex items-center justify-between px-3 py-2 text-foreground cursor-pointer hover:bg-[var(--primary)]"
+                                        className="flex items-center justify-between px-3 py-2 text-foreground cursor-pointer hover:bg-[var(--primary)] hover:text-[var(--on-primary)]"
                                         onMouseDown={() =>
                                             handleSelectRecent(s)
                                         }>
