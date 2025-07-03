@@ -23,7 +23,7 @@ export default function HomePage() {
                 content="https://tradepulse-lite.vercel.app"
             />
             <meta name="twitter:card" content="summary_large_image" />
-            <section className="w-full max-w-3xl mx-auto bg-[var(--background)] text-[var(--foreground) py-10 sm:py-20">
+            <section className="w-full max-w-3xl mx-auto bg-[var(--background)] text-[var(--foreground) pt-6">
                 <div className="flex flex-col justify-center items-center gap-4">
                     <img
                         src="/home-page-hero.jpg"
@@ -46,8 +46,7 @@ export default function HomePage() {
                         <span>Made By </span>
                         <Link
                             to="https://github.com/arbistepanian"
-                            target="_blank"
-                        >
+                            target="_blank">
                             Arbi Stepanian
                         </Link>
                     </p>

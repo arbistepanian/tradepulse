@@ -28,6 +28,7 @@ export default function DashboardPage() {
     useEffect(() => {
         const saved = localStorage.getItem("lastSymbolData");
         if (saved) {
+            console.log("getting cached data");
             const parsed = JSON.parse(saved);
             if (parsed.symbol && parsed.data) {
                 setData(parsed.data);
@@ -45,9 +46,9 @@ export default function DashboardPage() {
         });
     };
 
-    const fetchData = () => {
+    const fetchData = (symb?: string) => {
         setShowDropdown(false);
-        if (!symbol || !symbol.trim()) {
+        if ((!symbol || !symbol.trim()) && !symb) {
             setError("Please enter a symbol");
             return;
         }
@@ -56,17 +57,21 @@ export default function DashboardPage() {
             return;
         }
 
+        if (!symb) symb = symbol;
+
+        console.log("fetchData: ", symb);
+
         setError(null);
 
         startTransaction(async () => {
             try {
-                const data = await fetchSymbolData(symbol);
+                const data = await fetchSymbolData(symb);
                 localStorage.setItem(
                     "lastSymbolData",
-                    JSON.stringify({ symbol, data })
+                    JSON.stringify({ symb, data })
                 );
                 setData(data);
-                updateRecentSymbols(symbol);
+                updateRecentSymbols(symb);
             } catch (err) {
                 console.error(err);
                 if (err instanceof Error) {
@@ -80,9 +85,10 @@ export default function DashboardPage() {
 
     const handleSelectRecent = (s: string) => {
         setSymbol(s);
+        console.log("handleSelectRecent: ", s);
         setShowDropdown(false);
         inputRef.current?.focus();
-        fetchData();
+        fetchData(s);
     };
 
     useEffect(() => {
@@ -156,7 +162,7 @@ export default function DashboardPage() {
                     </div>
                     <div className="w-full flex justify-start">
                         <Button
-                            onClick={fetchData}
+                            onClick={() => fetchData(symbol)}
                             disabled={isPending}
                             className="w-30">
                             {isPending ? "Loading..." : "Search"}
