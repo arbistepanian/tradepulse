@@ -1,4 +1,4 @@
-import { useState, useEffect, useTransition } from "react";
+import { useState, useEffect, useTransition, useRef } from "react";
 import SymbolInfoCard from "../ui/components/dashboard/SymbolInfo";
 import StockChart from "../ui/components/dashboard/StockChart";
 import NewsFeed from "../ui/components/dashboard/NewsFeed";
@@ -18,6 +18,12 @@ export default function DashboardPage() {
     const [error, setError] = useState<string | null>(null);
     const [symbol, setSymbol] = useState("");
     const [isPending, startTransaction] = useTransition();
+    const [recentSymbols, setRecentSymbols] = useState<string[]>(() => {
+        const saved = localStorage.getItem("recentSymbols");
+        return saved ? JSON.parse(saved) : [];
+    });
+    const [showDropdown, setShowDropdown] = useState(false);
+    const inputRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
         const saved = localStorage.getItem("lastSymbolData");
@@ -30,7 +36,17 @@ export default function DashboardPage() {
         }
     }, []);
 
+    const updateRecentSymbols = (newSymbol: string) => {
+        setRecentSymbols((prev) => {
+            const filtered = prev.filter((s) => s !== newSymbol);
+            const updated = [newSymbol, ...filtered].slice(0, 10);
+            localStorage.setItem("recentSymbols", JSON.stringify(updated));
+            return updated;
+        });
+    };
+
     const fetchData = () => {
+        setShowDropdown(false);
         if (!symbol || !symbol.trim()) {
             setError("Please enter a symbol");
             return;
@@ -50,12 +66,34 @@ export default function DashboardPage() {
                     JSON.stringify({ symbol, data })
                 );
                 setData(data);
-            } catch (err: any) {
+                updateRecentSymbols(symbol);
+            } catch (err) {
                 console.error(err);
                 setError(err.message || "Something went wrong");
             }
         });
     };
+
+    const handleSelectRecent = (s: string) => {
+        setSymbol(s);
+        setShowDropdown(false);
+        inputRef.current?.focus();
+        fetchData();
+    };
+
+    useEffect(() => {
+        if (!showDropdown) return;
+        const handler = (e: MouseEvent) => {
+            if (
+                inputRef.current &&
+                !inputRef.current.contains(e.target as Node)
+            ) {
+                setShowDropdown(false);
+            }
+        };
+        document.addEventListener("mousedown", handler);
+        return () => document.removeEventListener("mousedown", handler);
+    }, [showDropdown]);
 
     return (
         <>
@@ -81,19 +119,42 @@ export default function DashboardPage() {
 
             <div className="space-y-8">
                 <div className="flex w-full justify-start items-end gap-4">
-                    <div className="w-40">
+                    <div className="relative w-40">
                         <TextInput
                             label="Symbol"
                             name="symbol"
+                            ref={inputRef}
+                            onFocus={() => setShowDropdown(true)}
+                            onClick={() => setShowDropdown(true)}
+                            onBlur={() =>
+                                setTimeout(() => setShowDropdown(false), 150)
+                            }
                             value={symbol}
                             onKeyDown={(e) => e.key === "Enter" && fetchData()}
                             onChange={(e) =>
                                 setSymbol(e.target.value.toUpperCase())
                             }
                         />
+                        {showDropdown && recentSymbols.length > 0 && (
+                            <div className="absolute left-0 mt-2 w-56 bg-[var(--background)] shadow-lg rounded-md p-0 z-10 border border-border overflow-hidden">
+                                {recentSymbols.map((s) => (
+                                    <div
+                                        key={s}
+                                        className="flex items-center justify-between px-3 py-2 text-foreground cursor-pointer hover:bg-[var(--primary)]"
+                                        onMouseDown={() =>
+                                            handleSelectRecent(s)
+                                        }>
+                                        {s}
+                                    </div>
+                                ))}
+                            </div>
+                        )}
                     </div>
                     <div className="w-full flex justify-start">
-                        <Button onClick={fetchData} disabled={isPending}>
+                        <Button
+                            onClick={fetchData}
+                            disabled={isPending}
+                            className="w-30">
                             {isPending ? "Loading..." : "Search"}
                         </Button>
                     </div>
@@ -108,8 +169,7 @@ export default function DashboardPage() {
                         <section className="mb-8">
                             <Heading
                                 level={2}
-                                className="text-lg font-semibold mb-4 text-center"
-                            >
+                                className="text-lg font-semibold mb-4 text-center">
                                 Price Chart
                             </Heading>
                             <StockChartSkeleton />
@@ -118,8 +178,7 @@ export default function DashboardPage() {
                         <section className="mb-8">
                             <Heading
                                 level={2}
-                                className="text-lg font-semibold mb-4 text-center"
-                            >
+                                className="text-lg font-semibold mb-4 text-center">
                                 Recent News
                             </Heading>
                             <NewsFeedSkeleton />
@@ -137,8 +196,7 @@ export default function DashboardPage() {
                         <section className="mb-8">
                             <Heading
                                 level={2}
-                                className="text-lg font-semibold mb-4 text-center"
-                            >
+                                className="text-lg font-semibold mb-4 text-center">
                                 Price Chart
                             </Heading>
                             <StockChart prices={data.prices} />
@@ -147,8 +205,7 @@ export default function DashboardPage() {
                         <section className="mb-8">
                             <Heading
                                 level={2}
-                                className="text-lg font-semibold mb-4 text-center"
-                            >
+                                className="text-lg font-semibold mb-4 text-center">
                                 Recent News
                             </Heading>
                             <NewsFeed articles={data.news_articles} />

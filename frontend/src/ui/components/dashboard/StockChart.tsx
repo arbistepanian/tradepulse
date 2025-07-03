@@ -13,7 +13,7 @@ import {
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 import "chartjs-adapter-date-fns";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { ChartOptions, ChartData } from "chart.js";
 import type { PriceEntry } from "../../../lib/types/types";
 
@@ -22,6 +22,7 @@ import Heading from "../Heading";
 import ToggleSwitch from "../ToggleSwitch";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import Button from "../Button";
+import { getCSSVar } from "../../../lib/utils";
 
 ChartJS.register(
     CategoryScale,
@@ -45,15 +46,15 @@ type StockChartProps = {
 };
 
 const INDICATORS = [
-    { key: "sma_7", label: "SMA 7" },
-    { key: "sma_30", label: "SMA 30" },
+    // { key: "sma_7", label: "SMA 7" },
+    // { key: "sma_30", label: "SMA 30" },
+    { key: "sma_10", label: "SMA 10" },
+    { key: "sma_50", label: "SMA 50" },
     { key: "ema_7", label: "EMA 7" },
     { key: "ema_30", label: "EMA 30" },
-    { key: "ma_10", label: "MA 10" },
-    { key: "ma_50", label: "MA 50" },
     { key: "bb_upper", label: "Bollinger Upper" },
-    { key: "bb_lower", label: "Bollinger Lower" },
     { key: "bb_ma", label: "Bollinger MA" },
+    { key: "bb_lower", label: "Bollinger Lower" },
     { key: "rsi_14", label: "RSI 14" },
     { key: "macd", label: "MACD" },
     { key: "macd_signal", label: "MACD Signal" },
@@ -121,7 +122,13 @@ export default function StockChart({ prices }: StockChartProps) {
 
                     return {
                         label: ind.label,
-                        data: data.map((d) => (d as any)[ind.key]),
+                        data: data.map((d) => {
+                            const value = (
+                                d as PriceEntry &
+                                    Record<string, number | undefined>
+                            )[ind.key];
+                            return value === undefined ? null : value;
+                        }),
                         borderColor: INDICATOR_COLORS[ind.key],
                         backgroundColor: "transparent",
                         borderDash:
@@ -154,7 +161,7 @@ export default function StockChart({ prices }: StockChartProps) {
             plugins: {
                 legend: {
                     position: "top",
-                    labels: { color: "var(--foreground)" },
+                    labels: { color: getCSSVar("--foreground").trim() },
                 },
             },
             scales: {
@@ -164,12 +171,12 @@ export default function StockChart({ prices }: StockChartProps) {
                         unit: timeframe === "1d" ? "minute" : "day",
                     },
                     ticks: {
-                        color: "var(--foreground)",
+                        color: getCSSVar("--foreground").trim(),
                     },
                     title: {
                         display: true,
                         text: "Time",
-                        color: "var(--foreground)",
+                        color: getCSSVar("--foreground").trim(),
                     },
                 },
                 yPrice: {
@@ -182,9 +189,9 @@ export default function StockChart({ prices }: StockChartProps) {
                     title: {
                         display: true,
                         text: "Price ($)",
-                        color: "var(--foreground)",
+                        color: getCSSVar("--foreground").trim(),
                     },
-                    ticks: { color: "var(--foreground)" },
+                    ticks: { color: getCSSVar("--foreground").trim() },
                     grid: { color: "rgba(255,255,255,0.05)" },
                 },
                 ...(showRSI && {
@@ -200,9 +207,9 @@ export default function StockChart({ prices }: StockChartProps) {
                         title: {
                             display: true,
                             text: "RSI (14)",
-                            color: "var(--foreground)",
+                            color: getCSSVar("--foreground").trim(),
                         },
-                        ticks: { color: "var(--foreground)" },
+                        ticks: { color: getCSSVar("--foreground").trim() },
                         grid: { color: "rgba(255,255,255,0.05)" },
                     },
                 }),
@@ -217,9 +224,9 @@ export default function StockChart({ prices }: StockChartProps) {
                         title: {
                             display: true,
                             text: "MACD",
-                            color: "var(--foreground)",
+                            color: getCSSVar("--foreground").trim(),
                         },
-                        ticks: { color: "var(--foreground)" },
+                        ticks: { color: getCSSVar("--foreground").trim() },
                         grid: { color: "rgba(255,255,255,0.05)" },
                     },
                 }),
@@ -228,6 +235,15 @@ export default function StockChart({ prices }: StockChartProps) {
 
         return baseOptions;
     }, [timeframe, enabledIndicators]);
+
+    useEffect(() => {
+        if (!showDropdown) return;
+        const handler = () => {
+            setShowDropdown(false);
+        };
+        document.addEventListener("mousedown", handler);
+        return () => document.removeEventListener("mousedown", handler);
+    }, [showDropdown]);
 
     return (
         <div className="w-full bg-surface rounded-lg p-4 border border-[var(--border)] shadow-sm">
@@ -238,8 +254,7 @@ export default function StockChart({ prices }: StockChartProps) {
                         <Button
                             variant="secondary"
                             onClick={() => setShowDropdown((s) => !s)}
-                            className="flex items-center gap-1"
-                        >
+                            className="flex items-center gap-1">
                             Indicators <ChevronDownIcon className="w-4 h-4" />
                         </Button>
                         {showDropdown && (
@@ -247,8 +262,7 @@ export default function StockChart({ prices }: StockChartProps) {
                                 {INDICATORS.map((ind) => (
                                     <div
                                         key={ind.key}
-                                        className="flex items-center justify-between py-1"
-                                    >
+                                        className="flex items-center justify-between py-1">
                                         <span className="text-sm text-foreground">
                                             {ind.label}
                                         </span>
